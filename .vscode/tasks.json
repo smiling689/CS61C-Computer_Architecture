@@ -1,0 +1,42 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // 任务的类型，cppbuild 是 C/C++ 扩展提供的类型
+            "type": "cppbuild",
+            
+            // 任务的名字，非常重要，launch.json 将通过这个名字来调用它
+            "label": "C/C++: gcc build active file",
+            
+            // 要执行的编译命令
+            "command": "/usr/bin/gcc",
+            
+            // 传递给 gcc 命令的参数
+            "args": [
+                "-fdiagnostics-color=always", // 让错误信息有颜色，更易读
+                "-g",                         // 关键！生成调试信息，否则无法断点调试
+                "${file}",                    // 指代当前打开的源文件 (例如: eccentric.c)
+                "-o",                         // 指定输出文件的参数
+                "${fileDirname}/${fileBasenameNoExtension}" // 指定输出的可执行文件名 (例如: ./eccentric)
+            ],
+            
+            "options": {
+                // 命令执行时的工作目录
+                "cwd": "${fileDirname}"
+            },
+            
+            // 使用 gcc 的问题匹配器来捕获并显示编译错误
+            "problemMatcher": [
+                "$gcc"
+            ],
+            
+            // 将此任务标记为默认的“构建”任务组
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            
+            "detail": "编译器: /usr/bin/gcc"
+        }
+    ]
+}
