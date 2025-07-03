@@ -67,10 +67,11 @@ write_matrix:
 
     li     a0, 8
     jal    malloc
+    mv     s7, a0
     sw     s2, 0(a0)
     sw     s3, 4(a0)
 
-    
+
     mv     a1, s4           # file descriptor
     mv     a2, a0           # pointer to the buffer
     li     a3, 2            # number of elements to write
@@ -155,7 +156,8 @@ write_matrix:
     lw     a0, 28(sp)
     addi   sp, sp, 32
 
-
+    mv     a0, s7
+    jal    free
 
 # Epilogue
     lw     s0, 0(sp)
