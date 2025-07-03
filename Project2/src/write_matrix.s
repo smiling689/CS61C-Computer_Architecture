@@ -38,3 +38,20 @@ write_matrix:
 
 
     ret
+
+
+
+
+
+
+wrong_93:
+    li     a1, 93
+    jal    exit2
+
+wrong_94:
+    li     a1, 94
+    jal    exit2
+
+wrong_95:
+    li     a1, 95
+    jal    exit2
