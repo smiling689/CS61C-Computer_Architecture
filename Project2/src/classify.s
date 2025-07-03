@@ -204,6 +204,10 @@ classify:
     mv a0, s11
     lw t0, 0(s10)
     lw t1, 4(s10)
+    li t2, 10
+    li t3, 1
+    #bne t0, t2, wrong_100
+    #bne t1, t3, wrong_100
     mul a1, t0, t1
 
     jal argmax
@@ -286,4 +290,8 @@ wrong_89:
 
 wrong_88_2:
     li a1, 88
+    jal exit2
+
+wrong_100:
+    li a1, 100
     jal exit2
