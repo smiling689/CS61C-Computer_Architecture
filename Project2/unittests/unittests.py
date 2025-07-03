@@ -26,6 +26,13 @@ class TestAbs(TestCase):
     def tearDownClass(cls):
         print_coverage("abs.s", verbose=False)
 
+    def test_minus_one(self):
+        t = AssemblyTest(self, "abs.s")
+        t.input_scalar("a0", -1)
+        t.call("abs")
+        t.check_scalar("a0", 1)
+        t.execute()
+
 
 class TestRelu(TestCase):
     def test_simple(self):
@@ -47,22 +54,70 @@ class TestRelu(TestCase):
     def tearDownClass(cls):
         print_coverage("relu.s", verbose=False)
 
+    def test_tiny(self):
+        t = AssemblyTest(self, "relu.s")
+        # create an array in the data section
+        array0 = t.array([1, 9])
+        # load address of `array0` into register a0
+        t.input_array("a0", array0)
+        # set a1 to the length of our array
+        t.input_scalar("a1", len(array0))
+        # call the relu function
+        t.call("relu")
+        # check that the array0 was changed appropriately
+        t.check_array(array0, [1,  9])
+        # generate the `assembly/TestRelu_test_simple.s` file and run it through venus
+        t.execute()
+
+    def test_zero(self):
+        t = AssemblyTest(self, "relu.s")
+        array0 = t.array([])
+        t.input_array("a0", array0)
+        t.input_scalar("a1", len(array0))
+        t.call("relu")
+        t.execute(code=78)
+
 
 class TestArgmax(TestCase):
     def test_simple(self):
         t = AssemblyTest(self, "argmax.s")
         # create an array in the data section
-        raise NotImplementedError("TODO")
-        # TODO
+        array0 = t.array([1, 2, 5, -2])
         # load address of the array into register a0
-        # TODO
+        t.input_array("a0", array0)
         # set a1 to the length of the array
-        # TODO
+        t.input_scalar("a1", len(array0))
         # call the `argmax` function
-        # TODO
+        t.call("argmax")
         # check that the register a0 contains the correct output
-        # TODO
+        t.check_scalar("a0", 2)
         # generate the `assembly/TestArgmax_test_simple.s` file and run it through venus
+        t.execute()
+
+    def test_zero(self):
+        t = AssemblyTest(self, "argmax.s")
+        array0 = t.array([])
+        t.input_array("a0", array0)
+        t.input_scalar("a1", len(array0))
+        t.call("argmax")
+        t.execute(code=77)
+
+    def test_tiny(self):
+        t = AssemblyTest(self, "argmax.s")
+        array0 = t.array([1])
+        t.input_array("a0", array0)
+        t.input_scalar("a1", len(array0))
+        t.call("argmax")
+        t.check_scalar("a0", 0)
+        t.execute()
+
+    def test_last(self):
+        t = AssemblyTest(self, "argmax.s")
+        array0 = t.array([1,2,3,5,10])
+        t.input_array("a0", array0)
+        t.input_scalar("a1", len(array0))
+        t.call("argmax")
+        t.check_scalar("a0", 4)
         t.execute()
 
     @classmethod
