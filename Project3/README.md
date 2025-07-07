@@ -1,6 +1,6 @@
-# CPU
+# RISC-V CPU
 
-实现了二级流水线的CPU。（IF+EX）
+实现了二级流水线的CPU。（IF+EX，RISC-V指令集）
 
 CPU总架构图：
 
