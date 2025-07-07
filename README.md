@@ -14,7 +14,7 @@ Project 2: [RISC-V Classifier](https://github.com/smiling689/RISC-V_Classifier)
 
 Project 3: [CPU](https://github.com/smiling689/RISC-V_CPU)
 
-Project 4: 
+Because project 4 and Lab 11 need to do on Hive machines. So I have no choice but give up.  :(
 
 My notes for 40 lectures are all in my [blog site](https://smiling689.top/2025/07/06/CS61C-Computer%20Architecture/)
 
